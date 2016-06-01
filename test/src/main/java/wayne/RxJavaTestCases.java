@@ -5,9 +5,15 @@ import java.util.Comparator;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
 
 public class RxJavaTestCases {
+	
+	
+	
 	public static void rxTestCase1() {
+		
+		// Create a new Obeservable 被观察者or事件源 by using create()
 		Observable<String[]> testObs = Observable.create(new Observable.OnSubscribe<String[]>() {
 			public void call(Subscriber<? super String[]> sub) {
 				String[] aString = new String[] { "aaa", "bbb", "ccc" };
@@ -15,12 +21,73 @@ public class RxJavaTestCases {
 				sub.onCompleted();
 			}
 		});
-		testObs.subscribe(s -> System.out.println("lambda : " + s[0]));
+		
+	
+		 Subscriber<String[]> mySubscriber = new Subscriber<String[]>() {
+		 
+		 @Override 
+		 public void onNext(String[] s) { System.out.println("case1 :" + s[0]); }
+		 
+		 @Override 
+		 public void onCompleted() { }
+		 
+		 @Override 
+		 public void onError(Throwable e) { }
+ 
+		 };
+		 
+		 testObs.subscribe(mySubscriber);
+		
 	}
 	
+public static void rxTestCase2() {
+		
+		// Create a new Obeservable 被观察者or事件源 by using create()
+		Observable<String[]> testObs = Observable.create(new Observable.OnSubscribe<String[]>() {
+			public void call(Subscriber<? super String[]> sub) {
+				String[] aString = new String[] { "aaa", "bbb", "ccc" };
+				sub.onNext(aString);
+				sub.onCompleted();
+			}
+		});
+		
+		/*
+		 * Using Action1 to simplify subscriber  观察者
+		 * 
+		 */
+		
+		testObs.subscribe(new Action1<String[]>(){
+
+			@Override
+			public void call(String[] s) {
+				System.out.println("case2 : " + s[0]);
+				
+			}
+			
+		});
+	}
+
+
+public static void rxTestCase3() {
+	
+	// Create a new Obeservable 被观察者or事件源 by using create()
+	Observable<String[]> testObs = Observable.create(new Observable.OnSubscribe<String[]>() {
+		public void call(Subscriber<? super String[]> sub) {
+			String[] aString = new String[] { "aaa", "bbb", "ccc" };
+			sub.onNext(aString);
+			sub.onCompleted();
+		}
+	});
+	
+	/*
+	 * Using jdk 1.8 lambada simplified following code
+	 * 
+	 */
+	testObs.subscribe(s -> System.out.println("case3: simplified by lambda : " + s[0]));
+}
 	
 	//Test Operators
-	public static void rxTestCase2() {
+	public static void rxTestCase4() {
 		Observable<String> myObs = Observable.just("Operater Test").map(s -> s + " is testing");
 		myObs.subscribe(new Subscriber<String>(){
 			public void onNext(String s){
@@ -39,7 +106,7 @@ public class RxJavaTestCases {
 	}
 	
 	//Test String to Hash
-	public static void rxTestCase3() {
+	public static void rxTestCase5() {
 		Observable.just("Operater Test").map(s -> s.hashCode())
 				.subscribe(i -> System.out.println("Hash code is : " + Integer.toString(i)));
 	}
