@@ -23,13 +23,8 @@ public class App {
 		// System.out.println( "Hello World!" );
 		// hello("wayne","wang","test1","test2","test3");
 
-		Observable<String[]> testObs = Observable.create(new Observable.OnSubscribe<String[]>() {
-			public void call(Subscriber<? super String[]> sub) {
-				String[] aString = new String[] { "aaa", "bbb", "ccc" };
-				sub.onNext(aString);
-				sub.onCompleted();
-			}
-		});
+		RxJavaTestCases.RxTestCase1();
+		System.out.println("#####################################");
 		Observable<String> testOb = Observable.just("abc just");
 		 Subscriber<String> mySub = new Subscriber<String>(){
 		 public void onNext(String s){
@@ -47,7 +42,7 @@ public class App {
 		 }
 		 };
 
-		testObs.subscribe(s -> System.out.println("lambda : " + s[0]));
+		
 		String[] bString = new String[] { "aa", "bb", "cc" };
 		int i = 0;
 		for (String s : bString) {
