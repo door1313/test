@@ -23,45 +23,43 @@ public class App {
 		// System.out.println( "Hello World!" );
 		// hello("wayne","wang","test1","test2","test3");
 
-		RxJavaTestCases.RxTestCase1();
+		RxJavaTestCases.rxTestCase1();
 		System.out.println("#####################################");
-		Observable<String> testOb = Observable.just("abc just");
-		 Subscriber<String> mySub = new Subscriber<String>(){
-		 public void onNext(String s){
-		 System.out.println("Test finish : " + s);
-		 }
+		RxJavaTestCases.rxTestCase2();
+		RxJavaTestCases.rxTestCase3();
+		RxJavaTestCases.runnableCase1();
+		RxJavaTestCases.runnableCase2();
 		
-		 public void onCompleted() {
-		 // TODO Auto-generated method stub
-		
-		 }
-		
-		 public void onError(Throwable arg0) {
-		 // TODO Auto-generated method stub
-		
-		 }
-		 };
+//		Observable<String> testOb = Observable.just("abc just");
+//		 Subscriber<String> mySub = new Subscriber<String>(){
+//		 public void onNext(String s){
+//		 System.out.println("Test finish : " + s);
+//		 }
+//		
+//		 public void onCompleted() {
+//		 // TODO Auto-generated method stub
+//		
+//		 }
+//		
+//		 public void onError(Throwable arg0) {
+//		 // TODO Auto-generated method stub
+//		
+//		 }
+//		 };
 
 		
-		String[] bString = new String[] { "aa", "bb", "cc" };
-		int i = 0;
-		for (String s : bString) {
-			i++;
-			System.out.println("Loop " + Integer.toString(i) + " " + s);
-		}
+//		String[] bString = new String[] { "aa", "bb", "cc" };
+//		int i = 0;
+//		for (String s : bString) {
+//			i++;
+//			System.out.println("Loop " + Integer.toString(i) + " " + s);
+//		}
 
-		operaterTest();
-		operaterTestStringToHash();
 
-		Runnable r = () -> System.out.println("test runnable lambda");
-		r.run();
+		
+	
 
-		Comparator<String> c = (a, b) -> a.compareTo(b);
-		System.out.println(Integer.toString(c.compare("AAA", "AAA")));
-
-		Hello h = new Hello();
-		h.r.run();
-		h.r2.run();
+		
 
 		String message = "Test effective final";
 
@@ -75,12 +73,7 @@ public class App {
 		r4.run();
 		messageB.append("AA");
 
-		Person[] people = new Person[] { new Person("ted", "new", 41), new Person("wayne", "wang", 18),
-				new Person("adm", "zcho", 22) };
-		Arrays.sort(people, Person.compareFirstName);
-		Arrays.sort(people, Person::compareLastName);
-		for( Person p : people)
-			System.out.println(p);
+
 		
 		NamedCache<Long,String> cache = CacheFactory.getCache("st");
 		cache.put(3L, "3");
@@ -123,88 +116,23 @@ public class App {
 		}
 	}
 
-	public static void hello(String... names) {
-		Observable.from(names).subscribe(new Action1<String>() {
-
-			public void call(String s) {
-				System.out.println("Hellow " + s + "!");
-			}
-		});
-	}
+//	public static void hello(String... names) {
+//		Observable.from(names).subscribe(new Action1<String>() {
+//
+//			public void call(String s) {
+//				System.out.println("Hellow " + s + "!");
+//			}
+//		});
+//	}
     
 
-	public static void operaterTest() {
-		Observable myObs = Observable.just("Operater Test").map(s -> s + " is testing");
-		myObs.subscribe(new Subscriber<String>(){
-			public void onNext(String s){
-				System.out.println("xxx" + s);
-			}
-			@Override
-			public void onCompleted() {
-				System.out.println("completed");
-				
-			}
-			public void onError(Throwable e){
-				System.out.println("aaaaahhhh");
-			}
-		});
 
-	}
 
-	public static void operaterTestStringToHash() {
-		Observable.just("Operater Test").map(s -> s.hashCode())
-				.subscribe(i -> System.out.println("Hash code is : " + Integer.toString(i)));
-	}
+
 }
 
-class Hello {
 
-	public Runnable r = new Runnable() {
 
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			System.out.println(this);
-			System.out.println(this.toString());
-		}
 
-	};
-	public Runnable r2 = () -> {
-		// TODO Auto-generated method stub
-		System.out.println(this);
-		System.out.println(toString());
-	};
 
-	public String toString() {
-		return "Hello's custom";
-	}
-}
 
-class Person {
-	public String firstname;
-	public String lastname;
-	public int age;
-
-	public Person(String name, String name2, int age1) {
-		firstname = name;
-		lastname = name2;
-		age = age1;
-
-	}
-
-	public final static Comparator<Person> compareFirstName = (lhs, rhs) -> lhs.firstname.compareTo(rhs.firstname);
-	
-	public static int compareLastName(Person lhs, Person rhs){
-		return lhs.lastname.compareTo(rhs.lastname);
-	}
-	
-	
-	public String toString(){
-		return "[Person: firstName:" +firstname+" lastname: " +lastname +" age: " +age+"]";
-	}
-	
-}
-
-class WayneA {
-	
-}
