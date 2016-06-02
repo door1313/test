@@ -82,7 +82,7 @@ public class RxCoherenceTestCases {
   }
   
   public static void rxCoherenceLisenerCase1(){
-	  NamedCache<Long,String> cache = CacheFactory.getCache("st");
+	  NamedCache<Long,String> cache = CacheFactory.getTypedCache("st",withTypes(Long.class,String.class));
 	  ObservableMapListener<Long,String> listener = ObservableMapListener.create();
 		listener.filter(evt -> evt.getId() == MapEvent.ENTRY_INSERTED).map(MapEvent::getNewValue)
 		.subscribe(new Subscriber<String>(){
