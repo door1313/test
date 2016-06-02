@@ -18,6 +18,8 @@ public class App {
 		RxJavaTestCases.runnableCase1();
 		RxJavaTestCases.runnableCase2();
 		
+		RxCoherenceTestCases.rxCoherenceCase1();
+		
 //		Observable<String> testOb = Observable.just("abc just");
 //		 Subscriber<String> mySub = new Subscriber<String>(){
 //		 public void onNext(String s){
