@@ -11,14 +11,16 @@ public class App {
 		// System.out.println( "Hello World!" );
 		// hello("wayne","wang","test1","test2","test3");
 
-		RxJavaTestCases.rxTestCase1();
-		System.out.println("#####################################");
-		RxJavaTestCases.rxTestCase2();
-		RxJavaTestCases.rxTestCase3();
-		RxJavaTestCases.runnableCase1();
-		RxJavaTestCases.runnableCase2();
+//		RxJavaTestCases.rxTestCase1();
+//		System.out.println("#####################################");
+//		RxJavaTestCases.rxTestCase2();
+//		RxJavaTestCases.rxTestCase3();
+//		RxJavaTestCases.runnableCase1();
+//		RxJavaTestCases.runnableCase2();
 		
 		RxCoherenceTestCases.rxCoherenceCase1();
+		
+//		RxCoherenceTestCases.rxCoherenceCase2();
 		
 //		Observable<String> testOb = Observable.just("abc just");
 //		 Subscriber<String> mySub = new Subscriber<String>(){

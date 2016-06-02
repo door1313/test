@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/oracle/wayne/Coherence12.2.1.1RC2/coherence/lib/coherence.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
