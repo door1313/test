@@ -51,6 +51,7 @@ public static void rxTestCase2() {
 			}
 		});
 		
+
 		/*
 		 * Using Action1 to simplify subscriber  观察者
 		 * 
@@ -83,7 +84,7 @@ public static void rxTestCase3() {
 	 * Using jdk 1.8 lambada simplified following code
 	 * 
 	 */
-	testObs.subscribe(s -> System.out.println("case3: simplified by lambda : " + s[0]));
+	testObs.flatMap(strings -> Observable.from(strings)).subscribe(s -> System.out.println("case3: simplified by lambda : " + s));
 }
 	
 	//Test Operators

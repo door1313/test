@@ -14,11 +14,11 @@ public class App {
 //		RxJavaTestCases.rxTestCase1();
 //		System.out.println("#####################################");
 //		RxJavaTestCases.rxTestCase2();
-//		RxJavaTestCases.rxTestCase3();
+		RxJavaTestCases.rxTestCase3();
 //		RxJavaTestCases.runnableCase1();
 //		RxJavaTestCases.runnableCase2();
 		
-		RxCoherenceTestCases.rxCoherenceCase1();
+//		RxCoherenceTestCases.rxCoherenceCase1();
 		
 //		RxCoherenceTestCases.rxCoherenceCase2();
 		
