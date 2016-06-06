@@ -15,7 +15,7 @@ public class App {
 //		System.out.println("#####################################");
 //		RxJavaTestCases.rxTestCase2();
 //		RxJavaTestCases.rxTestCase3();
-		RxJavaTestCases.rxTestCase6();
+		RxJavaTestCases.rxTestCase9();
 //		RxJavaTestCases.runnableCase1();
 //		RxJavaTestCases.runnableCase2();
 		
@@ -56,17 +56,17 @@ public class App {
 
 		
 
-		String message = "Test effective final";
-
-		Runnable r3 = () -> System.out.println(message);
-
-		r3.run();
-
-		StringBuilder messageB = new StringBuilder("aa");
-		messageB.append("aa");
-		Runnable r4 = () -> System.out.println(messageB);
-		r4.run();
-		messageB.append("AA");
+//		String message = "Test effective final";
+//
+//		Runnable r3 = () -> System.out.println(message);
+//
+//		r3.run();
+//
+//		StringBuilder messageB = new StringBuilder("aa");
+//		messageB.append("aa");
+//		Runnable r4 = () -> System.out.println(messageB);
+//		r4.run();
+//		messageB.append("AA");
 
 
 		

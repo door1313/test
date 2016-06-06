@@ -2,6 +2,7 @@ package wayne;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -92,7 +93,7 @@ public static void rxTestCase3() {
 		Observable<String> myObs = Observable.just("Operater Test").map(s -> s + " is testing");
 		myObs.subscribe(new Subscriber<String>(){
 			public void onNext(String s){
-				System.out.println("xxx" + s);
+				System.out.println("on next is " + s);
 			}
 			@Override
 			public void onCompleted() {
@@ -100,7 +101,7 @@ public static void rxTestCase3() {
 				
 			}
 			public void onError(Throwable e){
-				System.out.println("aaaaahhhh");
+				System.out.println("error happened");
 			}
 		});
 
@@ -116,6 +117,41 @@ public static void rxTestCase3() {
 	public static void rxTestCase6() {
 		String[] test = {"data part 1","data part 2","data part 3"};
 		Observable.from(test).subscribe(s-> System.out.println("test from() value is : " + s));
+	}
+	
+	public static void rxTestCase7(){
+		Observable.range(1, 20).subscribe(s-> System.out.println("test range() to emit data from 1 to 20, value is : "+s));
+	}
+	
+	public static void rxTestCase8(){
+		Observable.timer(10, TimeUnit.SECONDS).subscribe(s-> System.out.println("This data emit by dely 10 seconds : "+s));
+		System.out.println("test case 8 still continue");
+		try {
+			//sleep 11 seconds.
+			Thread.sleep(11000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void rxTestCase9() {
+		Observable<String> myObs = Observable.error(new Exception());
+		myObs.subscribe(new Subscriber<String>(){
+			public void onNext(String s){
+				System.out.println("on next is " + s);
+			}
+			@Override
+			public void onCompleted() {
+				System.out.println("completed");
+				
+			}
+			public void onError(Throwable e){
+				System.out.println("error happened");
+			}
+		});
+
 	}
 	
 	public static void runnableCase1(){
