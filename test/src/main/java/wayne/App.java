@@ -14,13 +14,16 @@ public class App {
 //		RxJavaTestCases.rxTestCase1();
 //		System.out.println("#####################################");
 //		RxJavaTestCases.rxTestCase2();
-		RxJavaTestCases.rxTestCase3();
+//		RxJavaTestCases.rxTestCase3();
+		RxJavaTestCases.rxTestCase6();
 //		RxJavaTestCases.runnableCase1();
 //		RxJavaTestCases.runnableCase2();
 		
 //		RxCoherenceTestCases.rxCoherenceCase1();
-		
+//		
 //		RxCoherenceTestCases.rxCoherenceCase2();
+//		
+//		RxCoherenceTestCases.rxCoherenceCase3();
 		
 //		Observable<String> testOb = Observable.just("abc just");
 //		 Subscriber<String> mySub = new Subscriber<String>(){

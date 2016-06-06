@@ -112,6 +112,12 @@ public static void rxTestCase3() {
 				.subscribe(i -> System.out.println("Hash code is : " + Integer.toString(i)));
 	}
 
+	
+	public static void rxTestCase6() {
+		String[] test = {"data part 1","data part 2","data part 3"};
+		Observable.from(test).subscribe(s-> System.out.println("test from() value is : " + s));
+	}
+	
 	public static void runnableCase1(){
 		Runnable r = () -> System.out.println("test runnable lambda");
 		r.run();

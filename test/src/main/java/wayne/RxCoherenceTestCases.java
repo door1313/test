@@ -12,6 +12,7 @@ import com.tangosol.net.NamedCache;
 import com.tangosol.util.MapEvent;
 import com.tangosol.util.UUID;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.observables.MathObservable;
 
@@ -21,6 +22,9 @@ import static com.tangosol.util.Filters.less;
 import static com.tangosol.net.cache.TypeAssertion.withTypes;
 
 public class RxCoherenceTestCases {
+	
+	
+	//Using rxJava subscribe to print all value of cache data)
   public static void rxCoherenceCase1(){
 	  System.setProperty("coherence.distributed.localstorage", "true");
 	  NamedCache<Long,String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class,String.class));
@@ -31,11 +35,42 @@ public class RxCoherenceTestCases {
 		cache.put(5L, "5");
 		RxNamedCache<Long,String> rxcache = RxNamedCache.rx(cache);
 //		rxcache.values().buffer(2).subscribe(productList -> System.out.println("List :" + productList));
-		rxcache.values().subscribe(product -> System.out.println("rxCache : " + product));
+		rxcache.values().subscribe(product -> System.out.println("rxCache productID : " + product));
 		
   }
   
+  
+  //Using map() operator to add "rxCache" to every value
   public static void rxCoherenceCase2(){
+	  System.setProperty("coherence.distributed.localstorage", "true");
+	  NamedCache<Long,String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class,String.class));
+		cache.put(3L, "3");
+		cache.put(2L, "2");
+		cache.put(1L, "1");
+		cache.put(4L, "4");
+		cache.put(5L, "5");
+		RxNamedCache<Long,String> rxcache = RxNamedCache.rx(cache);
+//		rxcache.values().buffer(2).subscribe(productList -> System.out.println("List :" + productList));
+		rxcache.values().map(product -> "Add \"rxCache\" using map oprator, productID :"+product).subscribe(product -> System.out.println(product));
+		
+  }
+  
+  //Using flatMap() operator to call getProductName to get product name of each product id
+  public static void rxCoherenceCase3(){
+	  System.setProperty("coherence.distributed.localstorage", "true");
+	  NamedCache<Long,String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class,String.class));
+		cache.put(3L, "3");
+		cache.put(2L, "2");
+		cache.put(1L, "1");
+		cache.put(4L, "4");
+		cache.put(5L, "5");
+		RxNamedCache<Long,String> rxcache = RxNamedCache.rx(cache);
+//		rxcache.values().buffer(2).subscribe(productList -> System.out.println("List :" + productList));
+		rxcache.values().flatMap(id -> getProductName(id)).subscribe(product -> System.out.println(product));
+		
+  }
+  
+  public static void rxCoherenceCase4(){
 	  System.setProperty("coherence.distributed.localstorage", "true");
 
       NamedCache<UUID, Trade> cache =
@@ -113,6 +148,10 @@ public class RxCoherenceTestCases {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+  }
+  
+  public static Observable<String> getProductName(String id){
+	  return Observable.just("name+"+id);
   }
   
   public static void createPositions( NamedCache<UUID, Trade> tradesCache, int nCount)
