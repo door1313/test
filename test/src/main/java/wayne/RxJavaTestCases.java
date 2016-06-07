@@ -2,7 +2,9 @@ package wayne;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -225,7 +227,36 @@ public static void rxTestCase3() {
 		for( Person p : people)
 			System.out.println(p);
 	}
-	
+	public CompletableFuture<String> getYY(){
+//		return  CompletableFuture.supplyAsync(new Supplier<String>(){
+//
+//			@Override
+//			public String get() {
+//				// TODO Auto-generated method stub
+//				return "wayne";
+//			}
+//			
+//		});
+		
+		
+		return CompletableFuture.supplyAsync(()->"wayne");
+		
+	}
+	public void addYY(){
+//		return  CompletableFuture.supplyAsync(new Supplier<String>(){
+//
+//			@Override
+//			public String get() {
+//				// TODO Auto-generated method stub
+//				return "wayne";
+//			}
+//			
+//		});
+		
+		
+		
+		
+	}
 	
 }
 class Hello {
@@ -273,6 +304,8 @@ class Person {
 	public String toString(){
 		return "[Person: firstName:" +firstname+" lastname: " +lastname +" age: " +age+"]";
 	}
+	
+	
 	
 }
 
