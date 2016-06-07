@@ -45,6 +45,8 @@ public class App {
 		RxCoherenceTestCases.rxCoherenceCase4();
 		System.out.println("#####################################");
 		RxCoherenceTestCases.rxCoherenceCase5();
+		System.out.println("#####################################");
+		RxCoherenceTestCases.rxCoherenceLisenerCase1();
 		
 //		Observable<String> testOb = Observable.just("abc just");
 //		 Subscriber<String> mySub = new Subscriber<String>(){
