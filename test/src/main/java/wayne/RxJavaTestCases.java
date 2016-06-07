@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func2;
 
 public class RxJavaTestCases {
 	
@@ -88,12 +89,12 @@ public static void rxTestCase3() {
 	testObs.flatMap(strings -> Observable.from(strings)).subscribe(s -> System.out.println("case3: simplified by lambda : " + s));
 }
 	
-	//Test Operators
+	//Test create Observable by using just()
 	public static void rxTestCase4() {
-		Observable<String> myObs = Observable.just("Operater Test").map(s -> s + " is testing");
+		Observable<String> myObs = Observable.just(" Test create Observable by using just() ");
 		myObs.subscribe(new Subscriber<String>(){
 			public void onNext(String s){
-				System.out.println("on next is " + s);
+				System.out.println("on next is :" + s);
 			}
 			@Override
 			public void onCompleted() {
@@ -107,27 +108,35 @@ public static void rxTestCase3() {
 
 	}
 	
-	//Test String to Hash
+	//Test String to Hash by using operator map()
 	public static void rxTestCase5() {
 		Observable.just("Operater Test").map(s -> s.hashCode())
 				.subscribe(i -> System.out.println("Hash code is : " + Integer.toString(i)));
 	}
 
-	
+	//Create Observable by using from(), from will separate String array to several Observables.
 	public static void rxTestCase6() {
 		String[] test = {"data part 1","data part 2","data part 3"};
 		Observable.from(test).subscribe(s-> System.out.println("test from() value is : " + s));
 	}
 	
+	
+	//Using range() to create a Observable to send a range of number 
 	public static void rxTestCase7(){
 		Observable.range(1, 20).subscribe(s-> System.out.println("test range() to emit data from 1 to 20, value is : "+s));
 	}
 	
+	
+	// Using timer() to send 0L after delay 10 seconds.
 	public static void rxTestCase8(){
-		Observable.timer(10, TimeUnit.SECONDS).subscribe(s-> System.out.println("This data emit by dely 10 seconds : "+s));
+		Observable<Long> obs = Observable.timer(10, TimeUnit.SECONDS);
+		obs.map(value -> "Delay 10 seconds test").subscribe(s -> {
+			System.out.println("This data emit by dely 10 seconds : " + s);
+			System.out.println("test case 8 done");
+		});
 		System.out.println("test case 8 still continue");
 		try {
-			//sleep 11 seconds.
+			// sleep 11 seconds.
 			Thread.sleep(11000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -135,7 +144,7 @@ public static void rxTestCase3() {
 		}
 	}
 	
-	
+	//Test using .error() to send a exception to subscriber.
 	public static void rxTestCase9() {
 		Observable<String> myObs = Observable.error(new Exception());
 		myObs.subscribe(new Subscriber<String>(){
@@ -153,6 +162,43 @@ public static void rxTestCase3() {
 		});
 
 	}
+
+	// test skip and take operators
+	public static void rxTestCase10() {
+		String[] test = {"1","2","3","4","5","6","7"};
+		Observable.from(test).skip(2).take(3).subscribe(s->System.out.println("Test skip and take, value is : " +s));
+		
+	}
+	
+	public static void rxTestCase11() {
+		Observable<String> obs1 = Observable.just("obs1 for zip test");
+		Observable<String> obs2 = Observable.just("obs2 for zip test");
+//		Observable.zip(obs1,obs2, new Func2<String,String,String>(){
+//
+//			@Override
+//			public String call(String t1, String t2) {
+//				// TODO Auto-generated method stub
+//				return t1+" ==zip== " +t2;
+//			}
+//			
+//		}).subscribe(s -> System.out.println("Test operator zip() : " +s));
+		
+		//Using lambada to simplify code.
+		Observable.zip(obs1, obs2, (t1, t2) -> {
+			return t1 + " ==zip== " + t2;
+		}).subscribe(s -> System.out.println("Test operator zip() : " + s));
+		;
+
+	}
+	
+	// test buffer operators, periodically gather items emitted by an Observable
+		public static void rxTestCase12() {
+			String[] test = {"1","2","3","4","5","6","7"};
+			Observable.from(test).buffer(4).subscribe(s->System.out.println("Test skip and take, value is : " +s));
+			
+		}
+	
+	
 	
 	public static void runnableCase1(){
 		Runnable r = () -> System.out.println("test runnable lambda");

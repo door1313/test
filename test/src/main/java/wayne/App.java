@@ -11,19 +11,40 @@ public class App {
 		// System.out.println( "Hello World!" );
 		// hello("wayne","wang","test1","test2","test3");
 
-//		RxJavaTestCases.rxTestCase1();
-//		System.out.println("#####################################");
-//		RxJavaTestCases.rxTestCase2();
-//		RxJavaTestCases.rxTestCase3();
+		RxJavaTestCases.rxTestCase1();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase2();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase3();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase4();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase5();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase6();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase7();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase8();
+		System.out.println("#####################################");
 		RxJavaTestCases.rxTestCase9();
-//		RxJavaTestCases.runnableCase1();
-//		RxJavaTestCases.runnableCase2();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase10();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase11();
+		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase12();
+
 		
-//		RxCoherenceTestCases.rxCoherenceCase1();
-//		
-//		RxCoherenceTestCases.rxCoherenceCase2();
-//		
-//		RxCoherenceTestCases.rxCoherenceCase3();
+		RxCoherenceTestCases.rxCoherenceCase1();
+		System.out.println("#####################################");
+		RxCoherenceTestCases.rxCoherenceCase2();
+		System.out.println("#####################################");
+		RxCoherenceTestCases.rxCoherenceCase3();
+		System.out.println("#####################################");
+		RxCoherenceTestCases.rxCoherenceCase4();
+		System.out.println("#####################################");
+		RxCoherenceTestCases.rxCoherenceCase5();
 		
 //		Observable<String> testOb = Observable.just("abc just");
 //		 Subscriber<String> mySub = new Subscriber<String>(){
