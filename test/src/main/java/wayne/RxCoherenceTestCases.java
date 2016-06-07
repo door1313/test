@@ -3,7 +3,6 @@ package wayne;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import com.oracle.coherence.rx.ObservableMapListener;
 import com.oracle.coherence.rx.RxNamedCache;
@@ -27,28 +26,28 @@ public class RxCoherenceTestCases {
 	// Using rxJava subscribe to print all value of cache data)
 	public static void rxCoherenceCase1() {
 		System.setProperty("coherence.distributed.localstorage", "true");
-		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class, String.class));
-		cache.put(1L, "1");
-		cache.put(2L, "2");
-		cache.put(3L, "3");
-		cache.put(4L, "4");
-		cache.put(5L, "5");
-		RxNamedCache<Long, String> rxcache = RxNamedCache.rx(cache);
+		NamedCache<String, String> cache = CacheFactory.getTypedCache("st", withTypes(String.class, String.class));
+		cache.put("A", "あああ");
+		cache.put("B", "2");
+		cache.put("C", "3");
+		cache.put("え", "大丸");
+		cache.put("E", "5");
+		RxNamedCache<String, String> rxcache = RxNamedCache.rx(cache);
 		// rxcache.values().buffer(2).subscribe(productList ->
 		// System.out.println("List :" + productList));
 		rxcache.values().subscribe(products -> System.out.println("rxCache productID : " + products));
-
+		rxcache.get("え").subscribe(product -> System.out.println("rxCache productID : " + product));
 	}
 
 	// Using map() operator to add "rxCache" to every value
 	public static void rxCoherenceCase2() {
 		System.setProperty("coherence.distributed.localstorage", "true");
-		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class, String.class));
-		cache.put(1L, "1");
-		cache.put(2L, "2");
-		cache.put(3L, "3");
-		cache.put(4L, "4");
-		cache.put(5L, "5");
+		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st2", withTypes(Long.class, String.class));
+		cache.put(1L, "トヨタ");
+		cache.put(2L, "ほんだ");
+		cache.put(3L, "テスト");
+		cache.put(4L, "テニス");
+		cache.put(5L, "薬");
 		RxNamedCache<Long, String> rxcache = RxNamedCache.rx(cache);
 		// rxcache.values().buffer(2).subscribe(productList ->
 		// System.out.println("List :" + productList));
@@ -61,12 +60,12 @@ public class RxCoherenceTestCases {
 	// each product id
 	public static void rxCoherenceCase3() {
 		System.setProperty("coherence.distributed.localstorage", "true");
-		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class, String.class));
-		cache.put(1L, "1");
-		cache.put(2L, "2");
-		cache.put(3L, "3");
-		cache.put(4L, "4");
-		cache.put(5L, "5");
+		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st3", withTypes(Long.class, String.class));
+		cache.put(1L, "トヨタ");
+		cache.put(2L, "ほんだ");
+		cache.put(3L, "テスト");
+		cache.put(4L, "テニス");
+		cache.put(5L, "薬");
 		RxNamedCache<Long, String> rxcache = RxNamedCache.rx(cache);
 		// rxcache.values().buffer(2).subscribe(productList ->
 		// System.out.println("List :" + productList));
@@ -77,14 +76,14 @@ public class RxCoherenceTestCases {
 	// test zip operator
 	public static void rxCoherenceCase4() {
 		System.setProperty("coherence.distributed.localstorage", "true");
-		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class, String.class));
-		NamedCache<Long, String> cache1 = CacheFactory.getTypedCache("st1", withTypes(Long.class, String.class));
-		cache.put(1L, "1");
-		cache.put(2L, "2");
-		cache.put(3L, "3");
-		cache.put(4L, "4");
-		cache.put(5L, "5");
-		cache1.put(11L, "11");
+		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st4", withTypes(Long.class, String.class));
+		NamedCache<Long, String> cache1 = CacheFactory.getTypedCache("st44", withTypes(Long.class, String.class));
+		cache.put(1L, "トヨタ");
+		cache.put(2L, "ほんだ");
+		cache.put(3L, "テスト");
+		cache.put(4L, "テニス");
+		cache.put(5L, "薬");
+		cache1.put(11L, "たなか");
 		cache1.put(12L, "12");
 		cache1.put(13L, "13");
 		cache1.put(14L, "14");
@@ -104,7 +103,7 @@ public class RxCoherenceTestCases {
 	// test skip
 	public static void rxCoherenceCase5() {
 		System.setProperty("coherence.distributed.localstorage", "true");
-		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st", withTypes(Long.class, String.class));
+		NamedCache<Long, String> cache = CacheFactory.getTypedCache("st5", withTypes(Long.class, String.class));
 		cache.put(1L, "1");
 		cache.put(2L, "2");
 		cache.put(3L, "3");
