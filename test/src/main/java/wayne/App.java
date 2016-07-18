@@ -11,8 +11,8 @@ public class App {
 		// System.out.println( "Hello World!" );
 		// hello("wayne","wang","test1","test2","test3");
 
-//		RxJavaTestCases.rxTestCase1();
-//		System.out.println("#####################################");
+		RxJavaTestCases.rxTestCase1();
+		System.out.println("#####################################");
 //		RxJavaTestCases.rxTestCase2();
 //		System.out.println("#####################################");
 //		RxJavaTestCases.rxTestCase3();
@@ -51,7 +51,7 @@ public class App {
 		RxJavaTestCases ccss = new RxJavaTestCases();
 		
 		Observable.create(s -> {ccss.getYY();
-		s.onNext("");}).subscribe(s->System.out.println(s));
+		s.onNext("abcd");}).subscribe(s->System.out.println(s));
 		
 		
 		

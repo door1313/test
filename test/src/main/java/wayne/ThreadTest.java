@@ -1,23 +1,21 @@
 package wayne;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 public class ThreadTest {
 	public static void main(String... str) throws InterruptedException {
 		
+//    ThreadTest.testCase1();
+//    ThreadTest.testCase2();
+//		ThreadTest.testCase3();
+		ThreadTest.testCase4();
 
-/*
- * case 1		test isAlive()
- */
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//		System.out.println("test");
-//		TestThread myT = new TestThread();
-////		if (!myT.t.isAlive()) {
-////			System.out.println("test end");
-////
-////		}
-//		myT.t.join();
-//		System.out.println("test end");
-///////////////////////////////////////////////////////////////////////////////////////////////////
-		
 /*
  * case 2	test join()
  */
@@ -49,29 +47,130 @@ public class ThreadTest {
 		/*
 		 * case 4 test synchronized block
 		 */
-		
-		TestCallNotSync callIn = new TestCallNotSync();
-		TestNotSync t1 = new TestNotSync(callIn,"t1");
-		TestNotSync t2 = new TestNotSync(callIn,"t2");
+//		
+//		TestCallNotSync callIn = new TestCallNotSync();
+//		TestNotSync t1 = new TestNotSync(callIn,"t1");
+//		TestNotSync t2 = new TestNotSync(callIn,"t2");
 		
 	
+//    int counter = 0;
+//    counter ++;
+//    System.out.println(counter);
+    
+
+    
 }
+
+/*
+ * case 1		test isAlive()
+ */
+	public static void testCase1() throws InterruptedException{
+		System.out.println("test");
+		TestThread myT = new TestThread();
+
+		//block the call thread until the thread represented by this instance terminates.
+		myT.t.join();
+		if (!myT.t.isAlive()) {
+			System.out.println("thread end");
+
+		}
+		System.out.println("test finished");
+	}
+	/*
+	 * case 2		test isAlive()
+	 */
+		public static void testCase2() throws InterruptedException{
+			System.out.println("test");
+			TestThread1 myT = new TestThread1();
+
+			//block the call thread until the thread represented by this instance terminates.
+			myT.t1.join();
+			if (!myT.t1.isAlive()) {
+				System.out.println("thread end");
+
+			}
+			System.out.println("test finished");
+		}
+		
+		/*
+		 * case3  test Callables and Future
+		 */
+		public static void testCase3(){
+			
+			TestCallable testC = new TestCallable();
+			try {
+				System.out.println(testC.future.get());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		/*
+		 * case4 test completableFuture
+		 */
+		
+	public static void testCase4() {
+
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(new mySupplier());
+
+		System.out.println("Testing CompletableFuture");
+//		
+//		Function<String, Integer> fn = new Function<String, Integer>(){
+//
+//			@Override
+//			public Integer apply(String t) {
+//				// TODO Auto-generated method stub
+//				return Integer.parseInt(t)-1;
+//			}
+//			
+//		};
+//		
+//		CompletableFuture<Integer> futureInt = future.thenApplyAsync(fn);
+
+		//Using lambda to simplify above codes.
+		CompletableFuture<Integer> futureInt = future.thenApplyAsync(Integer::parseInt).thenApply(i -> i-1);
+				
+		
+//		Consumer<Integer> action = new Consumer<Integer>(){
+//
+//			@Override
+//			public void accept(Integer s) {
+//				// TODO Auto-generated method stub
+//				System.out.println("thenAccept value is : " + s);
+//				
+//			}
+//			
+//		};
+//		futureInt.thenAcceptAsync(action);
+		
+		//Using lambda to simplify above codes.
+		futureInt.thenAcceptAsync(s -> System.out.println("thenAccept value is : " + s));
+
+		System.out.println("Doing some other jobs.");
+		// wait for other threads
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
+
+
 
 class TestThread implements Runnable {
 
 	Thread t;
 
 	TestThread() {
-		t = new Thread(this, "test thread");
-		System.out.println("This is test thread : " + t);
+		t = new Thread(this, "testCase1 thread implements Runnable");
+		System.out.println("This is test thread implements Runnable: " + t);
 		t.start();
-	}
-
-	TestThread(String name) {
-		t = new Thread(this, name);
-		System.out.println("This is test thread : " + t);
-
 	}
 
 	@Override
@@ -87,8 +186,66 @@ class TestThread implements Runnable {
 			}
 		}
 	}
-
 }
+
+class TestCallable implements Callable<Integer>{
+
+	Thread c;
+	FutureTask<Integer> future;
+	
+	TestCallable(){
+		future = new FutureTask<Integer>(this);
+		
+		c = new Thread(future);
+		c.start();
+		
+	}
+	@Override
+	public Integer call() throws Exception {
+		// TODO Auto-generated method stub
+		return 123;
+	}
+	
+}
+
+class TestThread1 extends Thread{
+	Thread t1;
+	
+	TestThread1(){
+		t1 = new Thread(this, "testCase2 extends Thread");
+		System.out.println("This is test thread extends Thread" +t1);
+		t1.start();
+	}
+	
+	public void run(){
+		for (int i = 0; i < 5; i++) {
+			System.out.println("#####" + i + " --- " + t1.getName());
+			try {
+				t1.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+}
+
+class mySupplier implements Supplier<String> {
+
+	@Override
+	public String get() {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "100";
+	}
+	
+}
+
 
 class TestPriority implements Runnable{
 	
